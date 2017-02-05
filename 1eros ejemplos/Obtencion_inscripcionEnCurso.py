@@ -1,10 +1,10 @@
 import json
 from utils import Agrupador
-'''
+f_out=open("processed_data/processed_inscripcion2.json", "w")
+output = []
 for i in range(187):
 	f = open("splitted/outputbatch_{}.json".format(i), "r")
-	f_out=open("splitted_and_analized/analized_{}.json".format(i), "w")
-	output = []
+	
 	myData = json.load(f)
 
 #algoritmo para poder obtener los datos de inscripcion en el curso.
@@ -21,7 +21,7 @@ for i in range(187):
 				output.append(datos)
 				#print datos["event_type"]
 
-	json.dump(output,f_out)
-'''
+json.dump(output,f_out)
+
 #ejecutar posteriormente
-Agrupador.agrupator("splitted_and_analized/analized_{}.json", "processed_data/processed_inscripcion2.json")
+#Agrupador.agrupator("splitted_and_analized/analized_{}.json", "processed_data/processed_inscripcion2.json")

@@ -1,11 +1,11 @@
 import json
 from utils import Agrupador
-'''
+f_out=open("processed_data/processed_listaUsuarios.json", "w")
+output = []
+struct_users=[]
 for i in range(187):
 	f = open("splitted/outputbatch_{}.json".format(i), "r")
-	f_out=open("splitted_and_analized/analized_{}.json".format(i), "w")
-	output = []
-	struct_users=[]
+	
 	myData = json.load(f)
 
 
@@ -18,10 +18,10 @@ for i in range(187):
 				datos["username"]=line["username"]
 				output.append(line["username"])
 				struct_users.append(datos)
-				print output
+				#print output
 
 
-	json.dump(struct_users,f_out)
-'''
+json.dump(struct_users,f_out)
+
 #ejecutar posteriormente
-Agrupador.agrupator("splitted_and_analized/analized_{}.json", "processed_data/processed_listaUsuarios.json")
+#Agrupador.agrupator("splitted_and_analized/analized_{}.json", "processed_data/processed_listaUsuarios.json")
