@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script type="text/javascript" src="d3/d3.js"></script>
+    <script src="https://rawgit.com/gka/d3-jetpack/master/d3-jetpack.js"></script>
+<link rel="stylesheet" type="text/css" href="table.css">
+
+    </head>
+    <body>
+<h1>Users that deactivated the enrollement and date of deactivation</h1>
+    <p>The table shows all the students that have unenrolled the course. Currently, <span style= "font-weight: strong;" id = numeroCancelaciones> </span> students</p>
+
+
+       <script>
+
+    // the table rows, typically loaded from data file using d3.csv
+    var users =[{"username": "HectorMC", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-07"}, {"username": "Marquitus", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-08"}, {"username": "cmendezmalaga", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-08"}, {"username": "Raul", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-09"}, {"username": "MarcDelgado", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-09"}, {"username": "HectorJenz", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-14"}, {"username": "Pere_Herrero", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-14"}, {"username": "irenesala", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-17"}, {"username": "JAG", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-19"}, {"username": "adria", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-19"}, {"username": "Evelynfossi", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-20"}, {"username": "Premianenca", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-21"}, {"username": "law_15", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-25"}, {"username": "JoseLuisMorales", "event_type": "edx.course.enrollment.deactivated", "time": "2016-03-30"}, {"username": "NoeliaMirRebull", "event_type": "edx.course.enrollment.deactivated", "time": "2016-04-02"}, {"username": "arovirar", "event_type": "edx.course.enrollment.deactivated", "time": "2016-04-03"}];
+    // column definitions
+    var columns = [
+        { head: 'Username', cl: 'username', html: ƒ('username') },
+        { head: 'Data', cl: 'time', html: ƒ('time') }
+    ];
+
+    // create table
+    var table = d3.select('body')
+        .append('table')
+        .attr("id", "tabla")
+        .attr("value", "tabla");
+
+    // create table header
+    table.append('thead').append('tr')
+        .selectAll('th')
+        .data(columns).enter()
+        .append('th')
+        .attr('class', ƒ('cl'))
+        .attr('class', '.responstable')
+        .text(ƒ('head'));
+
+    // create table body
+    table.append('tbody')
+        .selectAll('tr')
+        .data(users).enter()
+        .append('tr')
+        .attr('class','.responstable')
+        .selectAll('td')
+        .data(function(row, i) {
+            return columns.map(function(c) {
+                // compute cell values for this specific row
+                var cell = {};
+                d3.keys(c).forEach(function(k) {
+                    cell[k] = typeof c[k] == 'function' ? c[k](row,i) : c[k];
+                });
+                return cell;
+            });
+        }).enter()
+        .append('td')
+        .attr("class", ".responstable")
+        .html(ƒ('html'))
+        .attr('class', ƒ('cl'));
+        tablas();
+
+        function tablas(){
+        var yea=document.getElementById("tabla").rows.length;
+        document.getElementById("numeroCancelaciones").innerHTML =yea;
+        }
+
+    </script>
+    </body>
+</html>
