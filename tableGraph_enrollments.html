@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script type="text/javascript" src="d3/d3.js"></script>
+        <script src="https://rawgit.com/gka/d3-jetpack/master/d3-jetpack.js"></script>
+        <script type="text/javascript" src="1eros_ejemplos/processed_data/processed_users_enrolled.json"></script>
+<link rel="stylesheet" type="text/css" href="table.css">
+<style>
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: LightSlateGray ;
+}
+.axis--x path {
+  display: none;
+}
+#svgMain {margin-left:auto; margin-right:auto; display:block;}
+
+</style>
+
+    </head>
+    <body>
+<h1>Users that have enrolled the course and date</h1>
+    <p>The table shows all the students that have enrolled the course. Currently, <span style= "font-weight: strong;" id = numeroCancelaciones> </span> students</p>
+
+<div background-color=white >
+<svg  id=svgMain width="1200" height="500"></svg></div>
+<p align=center >Date</p>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+
+var svg = d3.select("svg"),
+    margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = +svg.attr("width") - margin.left - margin.right,
+    height = +svg.attr("height") - margin.top - margin.bottom;
+
+var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
+    y = d3.scaleLinear().rangeRound([height, 0]);
+
+var g = svg.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+d3.csv("1eros_ejemplos/processed_data/processed_freqs_signup.csv", function(d) {
+  d.frecuencia = +d.frecuencia;
+  return d;
+}, function(error, data) {
+  if (error) throw error;
+
+  x.domain(data.map(function(d) { return d.fecha; }));
+  y.domain([0, d3.max(data, function(d) { return d.frecuencia; })]);
+
+  g.append("g")
+      .attr("class", "axis axis--x")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(x));
+
+  g.append("g")
+      .attr("class", "axis axis--y")
+      .call(d3.axisLeft(y).ticks(20))
+    .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", "0.71em")
+      .attr("text-anchor", "end")
+      .text("frecuencia");
+
+
+
+
+  g.selectAll(".bar")
+    .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.fecha); })
+      .attr("y", function(d) { return y(d.frecuencia); })
+      .attr("width", x.bandwidth())
+      .text("fecha")
+      .attr("height", function(d) { return height - y(d.frecuencia)
+      ; });
+});
+
+</script>
+
+
+
+
+
+
+
+
+       <script>
+
+    // column definitions
+    var columns = [
+        { head: 'Username', cl: 'username', html: ƒ('username') },
+        { head: 'Data', cl: 'time', html: ƒ('time') }
+    ];
+
+    // create table
+    var table = d3.select('body')
+        .append('table')
+        .attr("id", "tabla")
+        .attr("value", "tabla");
+
+    // create table header
+    table.append('thead').append('tr')
+        .selectAll('th')
+        .data(columns).enter()
+        .append('th')
+        .attr('class', ƒ('cl'))
+        .attr('class', '.responstable')
+        .text(ƒ('head'));
+
+    // create table body
+    table.append('tbody')
+        .selectAll('tr')
+        .data(users).enter()
+        .append('tr')
+        .attr('class','.responstable')
+        .selectAll('td')
+        .data(function(row, i) {
+            return columns.map(function(c) {
+                // compute cell values for this specific row
+                var cell = {};
+                d3.keys(c).forEach(function(k) {
+                    cell[k] = typeof c[k] == 'function' ? c[k](row,i) : c[k];
+                });
+                return cell;
+            });
+        }).enter()
+        .append('td')
+        .attr("class", ".responstable")
+        .html(ƒ('html'))
+        .attr('class', ƒ('cl'));
+
+  tablas();
+
+        function tablas(){
+        var yea=document.getElementById("tabla").rows.length;
+        document.getElementById("numeroCancelaciones").innerHTML =yea;
+        }
+
+
+
+    </script>
+    </body>
+</html>
