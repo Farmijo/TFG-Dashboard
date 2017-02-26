@@ -58,38 +58,29 @@ td:nth-child(even) {
   </table>
        <script>
 
-// Builds the HTML Table out of users.
 function buildHtmlTable(selector) {
   var columns = addAllColumnHeaders(users, selector);
 
   for (var i = 0; i < users.length; i++) {
     var row$ = $('<tr/>');
     for (var colIndex = 0; colIndex < columns.length; colIndex++) {
-
-
       var cellValue = users[i][columns[colIndex]];
-     // console.log(users[i][columns[1]])
+
+      var tipo = typeof cellValue;
+
 
       if (cellValue == null) cellValue = "";
-        var tipo = typeof cellValue;
-        console.log(tipo)
-      if (cellValue>4 && and tipo == "number" ){
-     row$.append($('<td/>').html(cellValue));
-        }
-      else{
-        row$.append($('<td/>').addClass("caca").html(cellValue));
-      }
 
+    
 
+      row$.append($('<td/>').html(cellValue));
+    
     }
     $(selector).append(row$);
   }
 }
 
 
-// Adds a header row to the table and returns the set of columns.
-// Need to do union of keys from all records as some records may not contain
-// all records.
 function addAllColumnHeaders(users, selector) {
   var columnSet = [];
   var headerTr$ = $('<tr/>');
@@ -114,5 +105,16 @@ function addAllColumnHeaders(users, selector) {
 
 
     </script>
+
+    <script> 
+
+    var $tds = $("#excelDataTable > tbody  > tr > td");
+
+$.each($tds, function(key, value) {               
+    //alert(.text());        
+    $(this).parent('tr').css( 'background-color','#FFFF99' );
+});
+
+</script>
     </body>
 </html>
