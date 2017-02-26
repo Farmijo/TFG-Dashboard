@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        <script type="text/javascript" src="d3/d3.js"></script>
+    <script src="https://rawgit.com/gka/d3-jetpack/master/d3-jetpack.js"></script>
+    <script type="text/javascript" src="1eros_ejemplos/processed_data/testsData/processed_averages_1st_attempt.json"></script>
+<link rel="stylesheet" type="text/css" href="table.css">
+
+    </head>
+    <body>
+
+ <a href="Index.html">Back</a>   
+<h1>Users that have enrolled the course and date</h1>
+    <p>The table shows all the students that have enrolled the course. Currently, <span style= "font-weight: strong;" id = numeroCancelaciones> </span> students</p>
+
+       <script>
+
+
+
+    // column definitions
+    var columns = [
+        { head: 'Curso', cl: 'curso', html: ƒ('curso') },
+        { head: 'Nota media', cl: 'nota_media', html: ƒ('nota_media') }
+    ];
+
+    // create table
+    var table = d3.select('body')
+        .append('table')
+        .attr("id", "tabla")
+        .attr("value", "tabla");
+
+    // create table header
+    table.append('thead').append('tr')
+        .selectAll('th')
+        .data(columns).enter()
+        .append('th')
+        .attr('class', ƒ('cl'))
+        .attr('class', '.responstable')
+        .text(ƒ('head'));
+
+    // create table body
+    table.append('tbody')
+        .selectAll('tr')
+        .data(users).enter()
+        .append('tr')
+        .attr('class','.responstable')
+        .selectAll('td')
+        .data(function(row, i) {
+            return columns.map(function(c) {
+                // compute cell values for this specific row
+                var cell = {};
+                d3.keys(c).forEach(function(k) {
+                    cell[k] = typeof c[k] == 'function' ? c[k](row,i) : c[k];
+                });
+                return cell;
+            });
+        }).enter()
+        .append('td')
+        .attr("class", ".responstable")
+        .html(ƒ('html'))
+        .attr('class', ƒ('cl'));
+
+  tablas();
+
+        function tablas(){
+        var yea=document.getElementById("tabla").rows.length;
+        document.getElementById("numeroCancelaciones").innerHTML =yea;
+        }
+
+
+
+    </script>
+    </body>
+</html>
